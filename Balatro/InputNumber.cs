@@ -21,26 +21,35 @@ namespace Balatro
         //---------------------------
         public int InputNum(int[] number)
         {
+
             //数値を配列分入力
             for (int i = 0; i < numbers.Length; i++)
             {
-                bool loop = true;
+                //bool loop = true;
 
-                while (loop == true)
-                {        
-                    string numStr;
-                    Console.Write((i + 1) + "枚目の数値[1～13]:");
-                    numStr = Console.ReadLine();
-                    //数値以外または範囲外の文字列を入力した際、再入力
-                    if (int.TryParse(numStr, out numbers[i])
-                        && (numbers[i] >= 1 && numbers[i] <= 13)) loop = false;
-                    else
-                    {
-                        Console.WriteLine("対応した数値を入力してください");
-                        Console.ReadLine();
-                    }
-                }
-                number[i] = numbers[i];
+                //while (loop == true)
+                //{        
+                //    string numStr;
+                //    Console.Write((i + 1) + "枚目の数値[1～13]:");
+                //    numStr = Console.ReadLine();
+                //    //数値以外または範囲外の文字列を入力した際、再入力
+                //    if (int.TryParse(numStr, out numbers[i])
+                //        && (numbers[i] >= 1 && numbers[i] <= 13)) loop = false;
+                //    else
+                //    {
+                //        Console.WriteLine("対応した数値を入力してください");
+                //        Console.ReadLine();
+                //    }
+                //}
+
+                //number[i] = numbers[i];
+
+                Random rnd = new Random();
+                int rndNum = rnd.Next(1, 14); // 1～13までの整数をランダムで代入
+
+                number[i] = rndNum;
+                Console.WriteLine(rndNum);
+                Console.ReadLine();
             }
 
             //フォーカード
