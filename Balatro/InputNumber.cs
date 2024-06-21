@@ -8,24 +8,32 @@ namespace Balatro
 {
     internal class InputNumber
     {
+        //---------------------------
+        // フィールド
+        //---------------------------
+        //ランク代入配列
+        int[] numbers = new int[4];
+
+        int result = 0;
+
+        //---------------------------
+        // メソッド
+        //---------------------------
         public int InputNum(int[] number)
         {
-            int[] numbers = new int[4];
-            string numStr;
-            int result = 0;
-
+            //数値を配列分入力
             for (int i = 0; i < numbers.Length; i++)
             {
                 bool loop = true;
 
                 while (loop == true)
-                {
-                    //Console.Clear();
-                    Console.Write((i + 1) + "枚目の数値[1,2,3,4]:");
+                {        
+                    string numStr;
+                    Console.Write((i + 1) + "枚目の数値[1～13]:");
                     numStr = Console.ReadLine();
                     //数値以外または範囲外の文字列を入力した際、再入力
                     if (int.TryParse(numStr, out numbers[i])
-                        && (numStr == "1" || numStr == "2" || numStr == "3" || numStr == "4")) loop = false;
+                        && (numbers[i] >= 1 && numbers[i] <= 13)) loop = false;
                     else
                     {
                         Console.WriteLine("対応した数値を入力してください");
@@ -35,6 +43,12 @@ namespace Balatro
                 number[i] = numbers[i];
             }
 
+            //フォーカード
+            if ((number[0] == number[1]) && (number[0] == number[2]) && (number[0] == number[3]))
+            {
+                return  4;
+            } 
+            
             int count = 0;
             for (int i = 0; i < number.Count() - 1; i++)
             {
@@ -54,13 +68,6 @@ namespace Balatro
                 case 2: return 2;
                 case 3: return 3;
             }
-
-            //フォーカード
-            if ((number[0] == number[1]) && (number[0] == number[2]) && (number[0] == number[3]))
-            {
-                result = 4;
-            }
-
             return result;
         }
     }
