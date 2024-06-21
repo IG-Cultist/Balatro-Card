@@ -17,7 +17,7 @@ namespace Balatro
             //スコア
             int score = 0;
             int addScore;
-
+            int combo = 0;
             while (true)
             {  
                 //画面クリア
@@ -42,7 +42,17 @@ namespace Balatro
                     Console.WriteLine("スリーカード:3");
                     Console.WriteLine("フォーカード:4");
                     Console.WriteLine("==========================");
-                    Console.Write("> ");
+
+                    if (combo > 1)
+                    {
+                        Console.WriteLine(combo + "連勝中!");
+                        Console.Write("[現在のスコア:" + score + "]> ");
+                    }
+                    else
+                    {
+                        Console.Write("[現在のスコア:" + score + "]> ");
+                    }
+
                     numStr = Console.ReadLine();
                     //数値以外または範囲外の文字列を入力した際、再入力
                     if (int.TryParse(numStr, out forecastNum)
@@ -57,42 +67,41 @@ namespace Balatro
                 InputNumber inputNumber = new InputNumber();
                 result = inputNumber.InputNum(number);
 
-                if (result == 1)
+                switch (result)
                 {
-                    addScore = 10;
-                    Console.WriteLine("ワンペア");               
-                    Console.ReadLine();
+                    case 1:
+                        addScore = 10;
+                        Console.WriteLine("ワンペア");
+                        break;
+                    case 2:
+                        addScore = 20;
+                        Console.WriteLine("ツーペア");
+                        break;
+                    case 3:
+                        addScore = 50;
+                        Console.WriteLine("スリーカード");
+                        break;
+                    case 4:
+                        addScore = 100;
+                        Console.WriteLine("フォーカード");
+                        break;
+                    default:
+                        addScore = 5;
+                        Console.WriteLine("ハイカード");
+                        break;
                 }
-                else if (result == 2)
-                {
-                    addScore = 20;
-                    Console.WriteLine("ツーペア");
-                    Console.ReadLine();
-                }
-                else if (result == 3)
-                {
-                    addScore = 50;
-                    Console.WriteLine("スリーカード");
-                    Console.ReadLine();
-                }
-                else if (result == 4)
-                {
-                    addScore = 100;
-                    Console.WriteLine("フォーカード");
+                Console.ReadLine();
+
+                if (forecastNum == result)
+                { //的中した場合
+                    combo++;
+                    score += (addScore + (combo*2)); //コンボ数*2の数値をボーナスとして加点
+                    Console.WriteLine("的中！現在のスコア:" + score);
                     Console.ReadLine();
                 }
                 else
                 {
-                    addScore = 5;
-                    Console.WriteLine("ハイカード");
-                    Console.ReadLine();
-                }
-
-                if(forecastNum == result)
-                {
-                    score += addScore;
-                    Console.WriteLine("的中！現在のスコア:" + score);
-                    Console.ReadLine();
+                    combo = 0;
                 }
 
                 int again;
